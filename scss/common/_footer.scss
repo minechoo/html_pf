@@ -1,0 +1,52 @@
+footer {
+	padding: 120px 10vw;
+	background: #333;
+
+	.upper {
+		padding: 20px 0;
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 1px solid #777;
+
+		h1 {
+			font: bold 24px / l 'arial';
+			color: #777;
+		}
+
+		ul {
+			display: flex;
+			gap: 20px;
+
+			a {
+				font: bold 14px / l 'arial';
+				color: #777;
+			}
+		}
+	}
+	.lower {
+		padding: 20px 0;
+
+		address,
+		p {
+			font: bold 14px / l 'arial';
+			color: #777;
+
+			&:last-child {
+				margin-top: 20px;
+			}
+		}
+	}
+}
+@media screen and (max-width: $mobile) {
+	footer {
+		.upper {
+			flex-wrap: wrap;
+			justify-content: flex-start;
+
+			h1 {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+		}
+	}
+}
