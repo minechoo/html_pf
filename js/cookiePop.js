@@ -15,13 +15,14 @@ const btnClose = pop.querySelector('.close');
 
 //브라우저 로딩시 쿠기유무에 따라 팝업 보임, 숨김 처리
 const cookieData = document.cookie;
-if (cookieData.indexOf('today=done') < 0) {
-	//쿠키가 없을때 실행할 구문
-	pop.style.display = 'block';
-} else {
-	//쿠키가 있을떄 실행할 구문
-	pop.style.display = 'none';
-}
+// if (cookieData.indexOf('today=done') < 0) {
+// 	//쿠키가 없을때 실행할 구문
+// 	pop.style.display = 'block';
+// } else {
+// 	//쿠키가 있을떄 실행할 구문
+// 	pop.style.display = 'none';
+// }
+cookieData.indexOf('today=done') < 0 ? (pop.style.display = 'block') : (pop.style.display = 'none');
 
 //쿠키 확인 이벤트
 btnShow.addEventListener('click', (e) => {
