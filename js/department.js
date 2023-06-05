@@ -21,9 +21,9 @@ fetch('/DB/department.json')
         <div class="pic">
           <img src="img/${data.pic}" />
         </div>
-        <h1>${data.name}</h1>
+        <h2>${data.name}</h2>
         <p>${data.position}</p>
-      </srticle>
+      </article>
       `;
 			console.log(tags);
 		});
