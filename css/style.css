@@ -43,6 +43,17 @@ header ul.sns a {
 header .btnCall {
   display: none;
 }
+header.header_main {
+  position: absolute;
+  border-bottom: none;
+  z-index: 2;
+}
+header.header_main h1 a,
+header.header_main ul#gnb a,
+header.header_main ul.sns a,
+header.header_main .btnCall {
+  color: #fff;
+}
 
 @media screen and (max-width: 999px) {
   header {
@@ -111,9 +122,43 @@ footer .lower p:last-child {
     margin-bottom: 10px;
   }
 }
+.content {
+  width: 100%;
+}
+.content .subVisual {
+  width: 100%;
+  height: 250px;
+  background: gray;
+}
+.content .inner {
+  padding: 150px 10vw 100px;
+  min-height: 800px;
+}
+.content .inner h1 {
+  font: normal 50px/1 "arial";
+  color: #333;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 999px) {
+  .content .inner {
+    padding: 100px 10vw 80px;
+  }
+  .content .inner h1 {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 639px) {
+  .content .inner {
+    padding: 80px 40px 60px;
+  }
+  .content .inner h1 {
+    font-size: 24px;
+  }
+}
 #visual {
   width: 100%;
-  height: calc(100vh - 120px);
+  height: 100vh;
   background: #111;
   position: relative;
   display: flex;

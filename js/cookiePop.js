@@ -7,8 +7,8 @@
 //전체 문자열에서 indexOf특정 문자열을 찾지 못하면 -1을 반환
 //indexOf를 쓰는 이유는 -1을 통해서 전체 문자열에 특정 문자값이 있는지 없는지를 판단
 
-const btnShow = document.querySelector('header h1');
-const btnDel = document.querySelectorAll('header #gnb li')[0];
+const btnShow = document.querySelectorAll('header .sns li')[0];
+const btnDel = document.querySelectorAll('header .sns li')[2];
 const pop = document.querySelector('#pop');
 const ck = pop.querySelector('#ck');
 const btnClose = pop.querySelector('.close');
