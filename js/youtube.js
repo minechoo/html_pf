@@ -13,23 +13,38 @@
 
 const wrap = document.querySelector('.youtube .wrap');
 
-const key = 'AIzaSyANMdnk7q2cBX8tqGJZXpVFH9bGJMOwmEc'; //api 키
-const list = 'PLMafzyXZ12TPBYgeplFEdJeSMcJvb3v5u'; //class 브라우저 상단값
-const num = 10;
-const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list}&key=${key}&maxResults=${num}`;
+fetchData();
 
-fetch(url)
-	.then((data) => data.json())
-	.then((json) => {
-		console.log(json.items);
-		let tags = '';
+wrap.addEventListener('click', (e) => {
+	//console.log('e.currentTarget :', e.currentTarget);
+	//console.log('e.target :', e.target);
+	if (e.target.nodeName !== 'IMG') return;
+	console.log(e.target.getAttribute('alt'));
+});
 
-		json.items.forEach((item) => {
-			let tit = item.snippet.title;
-			let desc = item.snippet.description;
-			let date = item.snippet.publishedAt;
+//데이터 facthing 함수
+async function fetchData() {
+	const key = 'AIzaSyANMdnk7q2cBX8tqGJZXpVFH9bGJMOwmEc'; //api 키
+	const list = 'PLMafzyXZ12TPBYgeplFEdJeSMcJvb3v5u'; //class 브라우저 상단값
+	const num = 10;
+	const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list}&key=${key}&maxResults=${num}`;
 
-			tags += `
+	const data = await fetch(url);
+	const json = await data.json();
+	console.log(json.items);
+
+	creatList(json.items);
+}
+
+function creatList(arr) {
+	let tags = '';
+
+	arr.forEach((item) => {
+		let tit = item.snippet.title;
+		let desc = item.snippet.description;
+		let date = item.snippet.publishedAt;
+
+		tags += `
         <article>
           <h2>${tit.length > 50 ? tit.substr(0, 50) + '...' : tit}</h2>
           
@@ -43,14 +58,7 @@ fetch(url)
           </div>
         </article>
       `;
-		});
-
-		wrap.innerHTML = tags;
 	});
 
-wrap.addEventListener('click', (e) => {
-	//console.log('e.currentTarget :', e.currentTarget);
-	//console.log('e.target :', e.target);
-	if (e.target.nodeName !== 'IMG') return;
-	console.log(e.target.getAttribute('alt'));
-});
+	wrap.innerHTML = tags;
+}
