@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -577,6 +578,87 @@ footer .lower p:last-child {
 .department .inner .wrap article p {
   font: 16px/1 "arial";
   color: #555;
+}
+
+@media screen and (max-width: 999px) {
+  .department .inner .wrap article {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 639px) {
+  .department .inner .wrap article {
+    width: 100%;
+  }
+}
+.youtube .inner .wrap article {
+  width: 100%;
+  padding: 20px 0px;
+  border-bottom: 1px solid #ddd;
+}
+.youtube .inner .wrap article::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.youtube .inner .wrap article h2 {
+  width: 24%;
+  float: left;
+  padding-right: 20px;
+  font: normal 38px/1 "work sans";
+  color: #111;
+}
+.youtube .inner .wrap article .txt {
+  width: 46%;
+  float: left;
+  padding-right: 20px;
+}
+.youtube .inner .wrap article .txt p {
+  font: 14px/1.2 "arial";
+  color: #666;
+  margin-bottom: 40px;
+}
+.youtube .inner .wrap article .txt span {
+  font: 12px/1 "arial";
+  color: orange;
+}
+.youtube .inner .wrap article .pic {
+  width: 30%;
+  height: 180px;
+  float: left;
+}
+.youtube .inner .wrap article .pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 999px) {
+  .youtube .inner .wrap article h2 {
+    width: 50%;
+    font-size: 28px;
+  }
+  .youtube .inner .wrap article .txt {
+    width: 50%;
+    padding-right: 0px;
+  }
+  .youtube .inner .wrap article .pic {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 639px) {
+  .youtube .inner .wrap article h2 {
+    width: 100%;
+    font-size: 20px;
+    padding-right: 0px;
+  }
+  .youtube .inner .wrap article .txt {
+    width: 100%;
+  }
+  .youtube .inner .wrap article .pic {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
