@@ -15,11 +15,13 @@ const wrap = document.querySelector('.youtube .wrap');
 
 fetchData();
 
-wrap.addEventListener('click', (e) => {
+document.body.addEventListener('click', (e) => {
 	//console.log('e.currentTarget :', e.currentTarget);
 	//console.log('e.target :', e.target);
-	if (e.target.nodeName !== 'IMG') return;
+	if (e.target.className === 'thumb') createPop();
 	console.log(e.target.getAttribute('alt'));
+
+	if (e.target.className === 'close') removePop();
 });
 
 //데이터 facthing 함수
@@ -36,6 +38,7 @@ async function fetchData() {
 	creatList(json.items);
 }
 
+//동적으로 목록 생성함수
 function creatList(arr) {
 	let tags = '';
 
@@ -54,11 +57,38 @@ function creatList(arr) {
           </div>          
 
           <div class="pic">
-          <img src=${item.snippet.thumbnails.standard.url} alt=${item.snippet.resourceId.videoId}/>
+          <img src=${item.snippet.thumbnails.standard.url} alt=${
+			item.snippet.resourceId.videoId
+		} class="thumb"/>
           </div>
         </article>
       `;
 	});
 
 	wrap.innerHTML = tags;
+}
+
+//동적으로 팝업생성
+function createPop() {
+	const tags = `
+			<div class="con"></div>
+			<span class="close">close</span>
+	`;
+	const pop = document.createElement('aside');
+	pop.className = 'pop';
+	pop.innerHTML = tags;
+	document.body.append(pop);
+	setTimeout(() => {
+		document.querySelector('.pop').classList.add('on');
+	}, 0);
+
+	document.body.style.overflow = 'hidden';
+}
+
+function removePop() {
+	document.querySelector('.pop').classList.remove('on');
+	setTimeout(() => {
+		document.querySelector('.pop').remove();
+	}, 1000);
+	document.body.style.overflow = 'auto';
 }
