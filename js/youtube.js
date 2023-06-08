@@ -18,7 +18,7 @@ fetchData();
 document.body.addEventListener('click', (e) => {
 	//console.log('e.currentTarget :', e.currentTarget);
 	//console.log('e.target :', e.target);
-	if (e.target.className === 'thumb') createPop();
+	if (e.target.className === 'thumb') createPop(e.target.getAttribute('alt'));
 	console.log(e.target.getAttribute('alt'));
 
 	if (e.target.className === 'close') removePop();
@@ -69,9 +69,12 @@ function creatList(arr) {
 }
 
 //동적으로 팝업생성
-function createPop() {
+function createPop(id) {
 	const tags = `
-			<div class="con"></div>
+			<div class="con">
+			<iframe src="https://www.youtube.com/embed/${id}">
+			</iframe>
+			</div>
 			<span class="close">close</span>
 	`;
 	const pop = document.createElement('aside');
