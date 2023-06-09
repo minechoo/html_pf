@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
 * {
@@ -556,38 +555,43 @@ footer .lower p:last-child {
     text-align: left;
   }
 }
-#pop {
-  width: 320px;
-  height: 200px;
-  background: #fff;
+.pop {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
   position: fixed;
-  right: 5vw;
-  bottom: 5vh;
-  border: 1px solid #777;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-  display: none;
+  top: 0;
+  left: 0px;
+  padding: 100px;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 1s;
 }
-#pop .content {
+.pop.on {
+  opacity: 1;
+}
+.pop .con {
   width: 100%;
-  height: 160px;
-  padding: 20px;
+  height: 100%;
 }
-#pop .bottom {
+.pop .con iframe,
+.pop .con video,
+.pop .con img {
   width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+  height: 100%;
+  object-fit: cover;
+  border: none;
 }
-#pop .bottom .wrap label {
-  font: 12px/1 "돋움";
-  color: #777;
-  margin-left: 2px;
+.pop .con img {
+  object-fit: contain;
 }
-#pop .bottom .close {
+.pop .close {
   font: bold 14px/1 "arial";
-  color: #555;
+  color: #fff;
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  cursor: pointer;
 }
 
 .department .inner .wrap::after {
@@ -712,10 +716,12 @@ footer .lower p:last-child {
   left: 50%;
   transform: translateX(-50%);
   opacity: 1;
-  transition: 1s;
+  transition: opacity 1s;
+  z-index: 3;
 }
 .gallery .loading.off {
   opacity: 0;
+  z-index: -1;
 }
 .gallery .wrap {
   opacity: 0;

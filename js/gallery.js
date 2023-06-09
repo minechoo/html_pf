@@ -17,9 +17,9 @@ fetch(baseURL)
 			tags += `
       <li class="item">
         <div>
-          <a href='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg'>
-            <img src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg'>
-          </a>
+          
+            <img class='pic' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg' alt="https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg">
+          
           <p>${item.title === '' ? 'Have a good day!' : item.title}</p>
         </div>
       </li>
@@ -45,6 +45,15 @@ fetch(baseURL)
 		}
 	});
 
+document.body.addEventListener('click', (e) => {
+	if (e.target.className === 'pic') {
+		const imgSrc = e.target.getAttribute('alt');
+		console.log(imgSrc);
+		createPop(imgSrc);
+	}
+	if (e.target.className === 'close') removePop();
+});
+
 function isoLayout() {
 	new Isotope(wrap, {
 		itemSelector: '.item',
@@ -52,4 +61,23 @@ function isoLayout() {
 	});
 	wrap.classList.add('on');
 	loading.classList.add('off');
+}
+
+function createPop(imgSrc) {
+	const tags = `	
+		<div class='con'>
+			<img src='${imgSrc}' />
+		</div>
+		<span class='close'>close</span>
+	`;
+	const aside = document.createElement('aside');
+	aside.classList.add('pop');
+	aside.innerHTML = tags;
+	document.body.append(aside);
+	setTimeout(() => aside.classList.add('on'));
+}
+
+function removePop() {
+	const pop = document.querySelector('.pop');
+	pop.remove();
 }

@@ -11,10 +11,12 @@
 		left: 50%;
 		transform: translateX(-50%);
 		opacity: 1;
-		transition: 1s;
+		transition: opacity 1s;
+		z-index: 3;
 
 		&.off {
 			opacity: 0;
+			z-index: -1;
 		}
 	}
 
