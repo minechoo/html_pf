@@ -1,11 +1,17 @@
 const wrap = document.querySelector('.gallery .wrap');
 const loading = document.querySelector('.gallery .loading');
 const api_key = '86fbba2c96b5252a51879bc23af1f41e';
-const method_interest = 'flickr.interestingness.getList';
 const num = 300;
-const baseURL = `https://www.flickr.com/services/rest/?method=${method_interest}&api_key=${api_key}&format=json&nojsoncallback=1&per_page=${num}`;
+const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
 
-fetch(baseURL)
+const method_interest = 'flickr.interestingness.getList';
+const interest_url = `${baseURL}${method_interest}`;
+
+const myId = '194260994@N06';
+const method_user = 'flickr.people.getPhotos';
+const user_url = `${baseURL}${method_user}&user_id=${myId}`;
+
+fetch(user_url)
 	.then((res) => res.json())
 	.then((json) => {
 		console.log(json);
