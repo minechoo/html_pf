@@ -16,10 +16,10 @@ fetch(baseURL)
 		items.forEach((item) => {
 			tags += `
       <li class="item">
-        <div>
-          
-            <img class='pic' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg' alt="https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg">
-          
+        <div>          
+            <img class='pic' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg' alt="https://live.staticflickr.com/${item.server}/${item.id}_${
+				item.secret
+			}_b.jpg">          
           <p>${item.title === '' ? 'Have a good day!' : item.title}</p>
         </div>
       </li>
