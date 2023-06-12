@@ -8,33 +8,32 @@ const btnMine = document.querySelector('.gallery .btnMine');
 const api_key = '86fbba2c96b5252a51879bc23af1f41e';
 const num = 50;
 const myId = '194260994@N06';
+/*
+keydown: 키를 누를때
+keyup: 키를  뗄때 (mac OS 이벤트가 두번씩 발생)
+keypress: 키를 눌렀다가 땔때 (한자같은 특수키 지원안됨) 추천
+*/
 
 fecthData(setURL('interest'));
 
-btnSearch.addEventListener('click', (e) => {
-	e.preventDefault();
-	const value = input.value.trim();
-	input.value = '';
+btnSearch.addEventListener('click', getSearch);
 
-	if (value === '') return alert('검색어를 입력해주세요!');
+//검색창에 키보드 이벤트 연결
+input.addEventListener('keypress', (e) => e.code === 'Enter' && getSearch());
 
-	fecthData(setURL('search'));
-});
-
-//사용자 아이디 클릭시 해당 갤러리 이벤트
-wrap.addEventListener('click', (e) => {
-	if (e.target.className === 'userid') {
-		fecthData(setURL('user', e.target.innerText));
-	}
+//사용자 아이디 클릭시 해당 갤러리 확인 이벤트
+document.body.addEventListener('click', (e) => {
+	if (e.target.className === 'userid') fecthData(setURL('user', e.target.innerText));
+	if (e.target.className === 'thumb') createPop(e.target.getAttribute('alt'));
+	if (e.target.className === 'close') removePop();
 });
 
 btnInterest.addEventListener('click', () => fecthData(setURL('interest')));
 btnMine.addEventListener('click', () => fecthData(setURL('user', myId)));
 
-//인수값에 따는 데이터 호출 URL 반환함수
+//인수값에 따른 데이터 호출 URL반환 함수
 function setURL(type, opt) {
 	const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
-
 	const method_interest = 'flickr.interestingness.getList';
 	const method_user = 'flickr.people.getPhotos';
 	const method_search = 'flickr.photos.search';
@@ -44,6 +43,13 @@ function setURL(type, opt) {
 	if (type === 'user') return `${baseURL}${method_user}&user_id=${opt}`;
 }
 
+function getSearch() {
+	const value = input.value.trim();
+	input.value = '';
+	if (value === '') return alert('검색어를 입력해주세요.');
+	fecthData(setURL('search', value));
+}
+
 async function fecthData(url) {
 	loading.classList.remove('off');
 	wrap.classList.remove('on');
@@ -51,8 +57,11 @@ async function fecthData(url) {
 	const res = await fetch(url);
 	const json = await res.json();
 	const items = json.photos.photo;
-	console.log(items);
-
+	if (items.length === 0) {
+		loading.classList.add('off');
+		wrap.classList.add('on');
+		return alert('해당 검색어의 결과이미지가 없습니다.');
+	}
 	createList(items);
 }
 
@@ -62,15 +71,13 @@ function createList(arr) {
 	arr.forEach((item) => {
 		tags += `
         <li class='item'>
-          <div>
-            <a href='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg'>
-              <img class='thumb' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg' />
-            </a>
+          <div>           
+						<img class='thumb' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg' alt='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg' />          
             <p>${item.title === '' ? 'Have a good day!!' : item.title}</p>
 
 						<article class='profile'>	
 							<img src='http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg' />				
-							<span class="userid">${item.owner}</span>
+							<span class='userid'>${item.owner}</span>
 						</article>
           </div>
         </li>
@@ -105,4 +112,30 @@ function isoLayout() {
 	});
 	wrap.classList.add('on');
 	loading.classList.add('off');
+}
+
+function createPop(url) {
+	document.body.style.overflow = 'hidden';
+	const aside = document.createElement('aside');
+	aside.className = 'pop';
+	const tags = `
+		<div class='con'>
+			<img src='${url}' />
+		</div>
+
+		<span class='close'>close</span>
+	`;
+	aside.innerHTML = tags;
+	document.body.append(aside);
+
+	setTimeout(() => document.querySelector('.pop').classList.add('on'), 0);
+}
+
+function removePop() {
+	document.body.style.overflow = 'auto';
+	const pop = document.querySelector('.pop');
+	pop.classList.remove('on');
+	setTimeout(() => {
+		pop.remove();
+	}, 1000);
 }
