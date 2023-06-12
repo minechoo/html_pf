@@ -4,6 +4,7 @@ const input = document.querySelector('.gallery #search');
 const btnSearch = document.querySelector('.gallery .btn_search');
 const btnInterest = document.querySelector('.gallery .btnInterest');
 const btnMine = document.querySelector('.gallery .btnMine');
+const userId = document.querySelectorAll('.gallery .userid');
 
 const api_key = '86fbba2c96b5252a51879bc23af1f41e';
 const num = 50;
@@ -30,6 +31,16 @@ btnSearch.addEventListener('click', (e) => {
 
 	const url_search = `${baseURL}${method_search}&tags=${value}`;
 	fecthData(url_search);
+});
+
+//사용자 아이디 클릭시 해당 갤러리 이벤트
+wrap.addEventListener('click', (e) => {
+	if (e.target.className === 'userid') {
+		const userid = e.target.innerText;
+		console.log(userid);
+		const url_user = `${baseURL}${method_user}&user_id=${userid}`;
+		fecthData(url_user);
+	}
 });
 
 btnInterest.addEventListener('click', (e) => {
@@ -70,7 +81,7 @@ function createList(arr) {
 
 						<article class='profile'>	
 							<img src='http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg' />				
-							<span>${item.owner}</span>
+							<span class="userid">${item.owner}</span>
 						</article>
           </div>
         </li>
@@ -79,18 +90,7 @@ function createList(arr) {
 	wrap.innerHTML = tags;
 
 	setLoading();
-	// const id_view = document.querySelectorAll('.profile span');
-
-	// const id_choice = id_view.textContent();
-	// id_view.addEventListener('click', (e) => {
-
-	// 	const url_id = `${baseURL}${method_user}&user_id=${id_choice}`;
-	// 	fecthData(url_id);
-	// });
-	// idView(id_view);
 }
-
-// function idView(el) {}
 
 function setLoading() {
 	const imgs = wrap.querySelectorAll('img');
