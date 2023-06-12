@@ -4,23 +4,12 @@ const input = document.querySelector('.gallery #search');
 const btnSearch = document.querySelector('.gallery .btn_search');
 const btnInterest = document.querySelector('.gallery .btnInterest');
 const btnMine = document.querySelector('.gallery .btnMine');
-const userId = document.querySelectorAll('.gallery .userid');
 
 const api_key = '86fbba2c96b5252a51879bc23af1f41e';
 const num = 50;
-const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
-
-const method_interest = 'flickr.interestingness.getList';
-const url_interest = `${baseURL}${method_interest}`;
-
 const myId = '194260994@N06';
-const method_user = 'flickr.people.getPhotos';
-const url_user = `${baseURL}${method_user}&user_id=${myId}`;
 
-const method_search = 'flickr.photos.search';
-// const url_search = `${baseURL}${method_search}&tags=landscape`;
-
-fecthData(url_interest);
+fecthData(setURL('interest'));
 
 btnSearch.addEventListener('click', (e) => {
 	e.preventDefault();
@@ -29,31 +18,31 @@ btnSearch.addEventListener('click', (e) => {
 
 	if (value === '') return alert('검색어를 입력해주세요!');
 
-	const url_search = `${baseURL}${method_search}&tags=${value}`;
-	fecthData(url_search);
+	fecthData(setURL('search'));
 });
 
 //사용자 아이디 클릭시 해당 갤러리 이벤트
 wrap.addEventListener('click', (e) => {
 	if (e.target.className === 'userid') {
-		const userid = e.target.innerText;
-		console.log(userid);
-		const url_user = `${baseURL}${method_user}&user_id=${userid}`;
-		fecthData(url_user);
+		fecthData(setURL('user', e.target.innerText));
 	}
 });
 
-btnInterest.addEventListener('click', (e) => {
-	e.preventDefault();
+btnInterest.addEventListener('click', () => fecthData(setURL('interest')));
+btnMine.addEventListener('click', () => fecthData(setURL('user', myId)));
 
-	fecthData(url_interest);
-});
+//인수값에 따는 데이터 호출 URL 반환함수
+function setURL(type, opt) {
+	const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
 
-btnMine.addEventListener('click', (e) => {
-	e.preventDefault();
+	const method_interest = 'flickr.interestingness.getList';
+	const method_user = 'flickr.people.getPhotos';
+	const method_search = 'flickr.photos.search';
 
-	fecthData(url_user);
-});
+	if (type === 'interest') return `${baseURL}${method_interest}`;
+	if (type === 'search') return `${baseURL}${method_search}&tags=${opt}`;
+	if (type === 'user') return `${baseURL}${method_user}&user_id=${opt}`;
+}
 
 async function fecthData(url) {
 	loading.classList.remove('off');
