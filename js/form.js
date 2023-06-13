@@ -75,6 +75,9 @@ function isEmail(name, len) {
 				errMsg.innerText = `@뒤쪽에 서비스명이 올바른지 확인하세요`;
 				input.closest('td').append(errMsg);
 				return false;
+			} else {
+				resetErr(input);
+				return true;
 			}
 		}
 	} else {
