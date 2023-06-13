@@ -24,21 +24,33 @@ function isText(name, len) {
 	const input = form.querySelector(`[name=${name}]`);
 	const txt = input.value;
 	if (txt.length < len) {
-		alert('입력한 텍스틑 항목을 5글자 이상 입력하세요');
+		resetErr(input);
+		const errMsg = document.createElement('p');
+		errMsg.innerText = `텍스트를 ${len} 글자이상 입력해 주세요`;
+		input.closest('td').append(errMsg);
 	} else {
+		resetErr(input);
 		return true;
 	}
 }
 
 //비밀번호 인증함수
 function isPwd(pwd1, pwd2, len) {
+	const pwdEl1 = form.querySelector(`[name=${pwd1}]`);
+	const num = /[0-9]/;
+	const eng = /[a-zA-Z]/;
+	const spc = /[!@#$%^&*()_+]/;
 	const pwd1_val = form.querySelector(`[name=${pwd1}]`).value;
 	const pwd2_val = form.querySelector(`[name=${pwd2}]`).value;
 
-	if (pwd1_val !== pwd2_val || pwd1_val.length < len) {
-		alert(`비밀번호 항목 2개를 동일하고 입력하고 ${len}글자 이상 입력하세요`);
+	if (pwd1_val !== pwd2_val || pwd1_val.length < len || !num.test(pwd1_val) || !eng.test(pwd1_val) || !spc.test(pwd1_val)) {
+		resetErr(pwdEl1);
+		const errMsg = document.createElement('p');
+		errMsg.innerText = `비밀번호는 ${len}글자 이상 특수문자, 영문, 숫자를 모두 포함하세요.`;
+		pwdEl1.closest('td').append(errMsg);
 		return false;
 	} else {
+		resetErr(pwdEl1);
 		//pwd1_val === pwd2_val && pwd1_val.length > len
 		return true;
 	}
@@ -46,12 +58,31 @@ function isPwd(pwd1, pwd2, len) {
 
 //email 인증함수
 function isEmail(name, len) {
+	const input = form.querySelector(`[name=${name}]`);
 	const email = form.querySelector(`[name=${name}]`).value;
-	if (email.indexOf('@') < 0 || email.length < len) {
-		alert('이메일주소에 @를 포함시키고 6글자 이상 입력하세요.');
-		return false;
+	if (/@/.test(email)) {
+		const [forwardTxt, backwardTxt] = email.split('@');
+		if (!forwardTxt || !backwardTxt) {
+			resetErr(input);
+			const errMsg = document.createElement('p');
+			errMsg.innerText = `@앞쪽이나 뒤쪽에 문자값이 없습니다`;
+			input.closest('td').append(errMsg);
+			return false;
+		} else {
+			if (!/\./.test(backwardTxt)) {
+				resetErr(input);
+				const errMsg = document.createElement('p');
+				errMsg.innerText = `@뒤쪽에 서비스명이 올바른지 확인하세요`;
+				input.closest('td').append(errMsg);
+				return false;
+			}
+		}
 	} else {
-		return true;
+		resetErr(input);
+		const errMsg = document.createElement('p');
+		errMsg.innerText = `이메일주소에 @를 포함시키세요`;
+		input.closest('td').append(errMsg);
+		return false;
 	}
 }
 
@@ -62,9 +93,15 @@ function isCheck(name) {
 	//지역변수 isChecked 를 true로 변경
 	for (const input of inputs) input.checked && (isChecked = true);
 	if (!isChecked) {
-		alert('해당 선택사항을 하나 이상 체크하세요');
+		resetErr(inputs);
+		const errMsg = document.createElement('p');
+		errMsg.innerText = `항목을 하나이상 선택하세요`;
+		inputs[0].closest('td').append(errMsg);
 		return false;
-	} else return true;
+	} else {
+		resetErr(inputs);
+		return true;
+	}
 }
 
 function isSelect(name) {
@@ -73,9 +110,20 @@ function isSelect(name) {
 	const value = input.options[selected_index].value;
 
 	if (value === '') {
-		alert('해당 요소중에 하나를 선택해주세요.');
+		resetErr(input);
+		const errMsg = document.createElement('p');
+		errMsg.innerText = `해당 요소중에 하나를 선택해주세요.`;
+		input.closest('td').append(errMsg);
 		return false;
 	} else {
+		resetErr(input);
 		return true;
 	}
+}
+
+function resetErr(inputs) {
+	let el = null;
+	inputs.length ? (el = inputs[0]) : (el = inputs);
+	const arrMsg = el.closest('td').querySelectorAll('p');
+	if (arrMsg.length > 0) el.closest('td').querySelector('p').remove();
 }
