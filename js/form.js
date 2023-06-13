@@ -7,14 +7,16 @@
 
 const form = document.querySelector('#member');
 const btnSubmit = document.querySelector('input[type=submit]');
+console.dir(document.querySelector('select[name=edu]'));
 
 btnSubmit.addEventListener('click', (e) => {
 	if (!isText('userid', 5)) e.preventDefault();
 	if (!isText('comments', 10)) e.preventDefault();
 	if (!isPwd('pwd1', 'pwd2', 5)) e.preventDefault();
 	if (!isEmail('email', 6)) e.preventDefault();
-	// if (!isCheck()) e.preventDefault();
-	// if (!isSelect()) e.preventDefault();
+	if (!isCheck('gender')) e.preventDefault();
+	if (!isCheck('hobby')) e.preventDefault();
+	if (!isSelect('edu')) e.preventDefault();
 });
 
 //text 항목 인증함수
@@ -54,9 +56,26 @@ function isEmail(name, len) {
 }
 
 function isCheck(name) {
-	return true;
+	const inputs = document.querySelectorAll(`[name=${name}]`);
+	let isChecked = false;
+	//현재 반복도는 체크요소에 하나라도 체크되어 있으면
+	//지역변수 isChecked 를 true로 변경
+	for (const input of inputs) input.checked && (isChecked = true);
+	if (!isChecked) {
+		alert('해당 선택사항을 하나 이상 체크하세요');
+		return false;
+	} else return true;
 }
 
 function isSelect(name) {
-	return true;
+	const input = form.querySelector(`[name=${name}]`);
+	const selected_index = input.options.selectedIndex;
+	const value = input.options[selected_index].value;
+
+	if (value === '') {
+		alert('해당 요소중에 하나를 선택해주세요.');
+		return false;
+	} else {
+		return true;
+	}
 }
