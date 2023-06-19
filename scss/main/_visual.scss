@@ -72,6 +72,24 @@
 		transform: scale(0.5);
 		filter: brightness(1000%) saturate(0%);
 	}
+	.btnPlay {
+		display: inline-block;
+		position: absolute;
+		bottom: 50px;
+		left: 50px;
+		cursor: pointer;
+		font-size: 20px;
+		z-index: 5;
+	}
+	.btnPause {
+		display: inline-block;
+		position: absolute;
+		bottom: 50px;
+		left: 100px;
+		cursor: pointer;
+		font-size: 20px;
+		z-index: 5;
+	}
 }
 
 @media screen and (max-width: $tablet) {
