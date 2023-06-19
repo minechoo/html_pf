@@ -6,9 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>main</title>
-  <script src="https://kit.fontawesome.com/31531ce94a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css">
   <script defer src="js/cookiePop.js"></script>
+  <script src="https://kit.fontawesome.com/31531ce94a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script defer src="js/visual.js"></script>
 </head>
 
 <body>
@@ -32,14 +35,27 @@
     <a href="#" class="btnCall"><i class="fa-solid fa-bars-staggered"></i></a>
   </header>
   <figure id="visual">
-    <video src="img/visual.mp4" autoplay muted loop></video>
-    <div class="txt">
-      <h1>INNOVATION</h1>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore vitae deleniti nisi omnis accusantium, rerum
-        blanditiis perferendis dolorum sapiente unde.
-      </p>
-      <a href="">VIEW OUR PORTFOLIO</a>
+    <div class="swiper-wrapper">
+      <article data-slide="1" class="swiper-slide">
+        <!-- <video src="img/visual.mp4" autoplay muted loop></video>
+        <div class="txt">
+          <h1>INNOVATION</h1>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore vitae deleniti nisi omnis accusantium,
+            rerum
+            blanditiis perferendis dolorum sapiente unde.
+          </p>
+          <a href="">VIEW OUR PORTFOLIO</a>
+        </div> -->
+      </article>
+      <article data-slide="2" class="swiper-slide">2</article>
+      <article data-slide="3" class="swiper-slide">3</article>
     </div>
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <div class="swiper-scrollbar"></div>
   </figure>
   <section id="vids">
     <h1>RECENT YOUTUBE</h1>
