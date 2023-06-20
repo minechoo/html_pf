@@ -227,6 +227,31 @@ footer .lower p:last-child {
 #visual .swiper-wrapper {
   position: relative;
 }
+#visual .swiper-wrapper article {
+  position: relative;
+  top: 50%;
+  margin-top: -250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: #fff;
+  height: 500px;
+  transition: 0.5s;
+}
+#visual .swiper-wrapper article.swiper-slide {
+  transform: scale(0.4);
+  opacity: 0;
+}
+#visual .swiper-wrapper article.swiper-slide-prev,
+#visual .swiper-wrapper article.swiper-slide-next {
+  transform: scale(0.7);
+  opacity: 0.5;
+}
+#visual .swiper-wrapper article.swiper-slide-active {
+  transform: scale(1);
+  opacity: 1;
+}
 #visual .swiper-wrapper article[data-slide="1"] {
   background: hotpink;
 }
@@ -235,6 +260,15 @@ footer .lower p:last-child {
 }
 #visual .swiper-wrapper article[data-slide="3"] {
   background: orange;
+}
+#visual .swiper-wrapper article[data-slide="4"] {
+  background: lightgreen;
+}
+#visual .swiper-wrapper article[data-slide="5"] {
+  background: violet;
+}
+#visual .swiper-wrapper article[data-slide="6"] {
+  background: skyblue;
 }
 #visual .swiper-button-next {
   bottom: 50px;
@@ -259,6 +293,10 @@ footer .lower p:last-child {
   cursor: pointer;
   font-size: 20px;
   z-index: 5;
+  opacity: 0.5;
+}
+#visual .btnPlay.on {
+  opacity: 1;
 }
 #visual .btnPause {
   display: inline-block;
@@ -268,6 +306,10 @@ footer .lower p:last-child {
   cursor: pointer;
   font-size: 20px;
   z-index: 5;
+  opacity: 0.5;
+}
+#visual .btnPause.on {
+  opacity: 1;
 }
 
 @media screen and (max-width: 999px) {
